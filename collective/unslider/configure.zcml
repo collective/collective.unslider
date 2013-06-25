@@ -16,6 +16,10 @@
     <include package=".behavior"/>
     <include package=".portlet"/>
 
+    <browser:resourceDirectory
+        name="collective.unslider"
+        directory="static"/>
+
     <!-- -*- extra stuff goes here -*- -->
 
 </configure>
