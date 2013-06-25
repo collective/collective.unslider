@@ -16,17 +16,27 @@ from plone.formwidget.contenttree import ObjPathSourceBinder
 from z3c.relationfield.schema import RelationList, RelationChoice
 from collective.sliderfields.interfaces import ISliderFieldsEnabled
 from z3c.form import field
+from plone.app.vocabularies.catalog import SearchableTextSourceBinder
+from plone.app.form.widgets.uberselectionwidget import UberMultiSelectionWidget
+
+from zope.component import getMultiAdapter, getUtility
+from AccessControl import getSecurityManager
+
 
 class IUnsliderPortlet(IPortletDataProvider):
     """
     Define your portlet schema here
     """
-    width = schema.Int(title=_(u'Width'))
-    height = schema.Int(title=_(u'Height'))
+    width = schema.Int(title=_(u'Width'), default=1024)
+    height = schema.Int(title=_(u'Height'), default=350)
 
-    contents = RelationList(title=_(u'Contents'),
-        value_type=RelationChoice(
-            source=ObjPathSourceBinder(object_provides=ISliderFieldsEnabled.__identifier__)
+    contents = schema.List(
+        title=_(u'Contents'),
+        value_type=schema.Choice(
+            source=SearchableTextSourceBinder({
+                'object_provides': ISliderFieldsEnabled.__identifier__
+            }, 
+            default_query='path:')
         )
     )
 
@@ -49,42 +59,82 @@ class Renderer(base.Renderer):
     def available(self):
         return True
 
+    def _get_object(self, path):
+        if not path:
+            return None
+
+        if path.startswith('/'):
+            path = path[1:]
+
+        if not path:
+            return None
+
+        portal_state = getMultiAdapter((self.context, self.request),
+                                       name=u'plone_portal_state')
+        portal = portal_state.portal()
+        if isinstance(path, unicode):
+            # restrictedTraverse accepts only strings
+            path = str(path)
+
+        result = portal.unrestrictedTraverse(path, default=None)
+        if result is not None:
+            sm = getSecurityManager()
+            if not sm.checkPermission('View', result):
+                result = None
+        return result
+
+
     def contents(self):
         data = []
         for i in self.data.contents:
-            obj = self.context.portal_catalog(UID=i.UID())[0].getObject()
-            title = getattr(i, 'slider_title', None)
+            obj = self._get_object(i)
+
+            title = getattr(obj, 'slider_title', None)
             if not title:
-                i.Title()
-            description = getattr(i, 'slider_description', None)
+                title = obj.Title()
+            description = getattr(obj, 'slider_description', None)
+            if not description:
+                description = obj.Description()
+
             scales = obj.restrictedTraverse('@@images')
             image = scales.scale('slider_image', width=self.data.width,
                                     height=self.data.height)
+
+            if image:
+                image_url = image.url
+            else:
+                image_url = 'http://placehold.it/%sx%s' % (height, width)
+            
             data.append({
                 'title': title,
                 'description': description,
-                'image_url': image.url,
+                'image_url': image_url,
                 'slide_css': 
                     """
                         height: %spx;
                         width: %spx;
                         background-image:url('%s');
                     """ % (
-                        self.data.height, self.data.width, image.url
+                        self.data.height, self.data.width, image_url
                     )
             })
         return data
 
+    def style(self):
+        return 'height:%spx;width:%spx;' % (self.data.height, self.data.width)
 
-class AddForm(z3cformhelper.AddForm):
-    fields = field.Fields(IUnsliderPortlet)
+
+class AddForm(base.AddForm):
+    form_fields = form.Fields(IUnsliderPortlet)
+    form_fields['contents'].custom_widget = UberMultiSelectionWidget
     label = _(u"Add Unslider Portlet")
     description = _(u"")
 
     def create(self, data):
         return Assignment(**data)
 
-class EditForm(z3cformhelper.EditForm):
-    fields = field.Fields(IUnsliderPortlet)
+class EditForm(base.EditForm):
+    form_fields = form.Fields(IUnsliderPortlet)
+    form_fields['contents'].custom_widget = UberMultiSelectionWidget
     label = _(u"Edit Unslider Portlet")
     description = _(u"")

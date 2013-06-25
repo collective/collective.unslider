@@ -1,5 +1,7 @@
-<div class="portlet portletUnsliderPortlet unslider"
+<div class="portlet portletUnsliderPortlet"
+    tal:attributes="style view/style"
     i18n:domain="collective.unslider">
+    <div class="unslider-portlet unslider">
     <ul>
         <li class="unslider-slide"
             tal:repeat="item view/contents"
@@ -8,4 +10,5 @@
             <p tal:content="item/description"></p>
         </li>
     </ul>
+    </div>
 </div>
