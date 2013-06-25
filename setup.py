@@ -33,6 +33,8 @@ setup(name='collective.unslider',
           'collective.dexteritytextindexer',
           'plone.app.multilingual',
           'plone.multilingualbehavior',
+          'collective.sliderfields',
+          'collective.js.unslider',
           # -*- Extra requirements: -*-
       ],
       extras_require={
