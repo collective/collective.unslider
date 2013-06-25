@@ -3,4 +3,12 @@
 
     <!-- -*- extra stuff goes here -*- -->
 
+ <javascript id="++resource++collective.unslider/unslider.js" 
+        cacheable="True"
+        enabled="True"
+        cookable="True"
+        compression="safe"
+        inline="False"
+        authenticated="False"/>
+
 </object>
