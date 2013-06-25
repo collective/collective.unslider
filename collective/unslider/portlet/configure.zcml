@@ -5,5 +5,13 @@
 
     <include package="plone.app.portlets" file="permissions.zcml"/>
     <!-- -*- extra stuff goes here -*- -->
+    <plone:portlet
+        name="collective.unslider.portlet.UnsliderPortlet"
+        interface=".unsliderportlet.IUnsliderPortlet"
+        assignment=".unsliderportlet.Assignment"
+        renderer=".unsliderportlet.Renderer"
+        addview=".unsliderportlet.AddForm"
+        editview=".unsliderportlet.EditForm"
+        />
 
 </configure>

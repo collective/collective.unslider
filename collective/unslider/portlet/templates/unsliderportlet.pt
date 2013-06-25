@@ -1,0 +1,11 @@
+<div class="portlet portletUnsliderPortlet unslider"
+    i18n:domain="collective.unslider">
+    <ul>
+        <li class="unslider-slide"
+            tal:repeat="item view/contents"
+            tal:attributes="style item/slide_css">
+            <h1 tal:content="item/title"></h1>
+            <p tal:content="item/description"></p>
+        </li>
+    </ul>
+</div>
