@@ -88,7 +88,8 @@ class Renderer(base.Renderer):
         data = []
         for i in self.data.contents:
             obj = self._get_object(i)
-
+            if obj is None:
+                continue
             title = getattr(obj, 'slider_title', None)
             if not title:
                 title = obj.Title()
@@ -109,6 +110,7 @@ class Renderer(base.Renderer):
                 'title': title,
                 'description': description,
                 'image_url': image_url,
+                'url': obj.absolute_url(),
                 'slide_css': 
                     """
                         height: %spx;
