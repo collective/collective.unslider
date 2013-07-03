@@ -4,7 +4,7 @@ Changelog
 1.1 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Fixed a very silly bug, forgot to link slide to its content [izhar]
 
 
 1.0 (2013-06-25)
