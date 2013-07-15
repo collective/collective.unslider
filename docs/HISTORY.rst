@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.3 (unreleased)
+1.3 (2013-07-15)
 ----------------
 
 - Swap width/height of placeholder image [izhar]
