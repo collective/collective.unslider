@@ -4,7 +4,8 @@ Changelog
 1.3 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Swap width/height of placeholder image [izhar]
+- added wrapper div around unslider content [izhar]
 
 
 1.2 (2013-07-15)

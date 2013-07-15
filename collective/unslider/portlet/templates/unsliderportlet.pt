@@ -6,10 +6,12 @@
             <li class="unslider-slide"
                 tal:repeat="item view/contents"
                 tal:attributes="style item/slide_css">
-                <h1><a tal:attributes="href item/url"
-                        tal:content="item/title"></a></h1>
-                <p><a tal:attributes="href item/url"
-                        tal:content="item/description"></a></p>
+                <div class="unslider-slide-content">
+                    <h1><a tal:attributes="href item/url"
+                            tal:content="item/title"></a></h1>
+                    <p><a tal:attributes="href item/url"
+                            tal:content="item/description"></a></p>
+                </div>
             </li>
         </ul>
     </div>
