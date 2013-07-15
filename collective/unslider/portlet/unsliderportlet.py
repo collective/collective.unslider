@@ -104,7 +104,8 @@ class Renderer(base.Renderer):
             if image:
                 image_url = image.url
             else:
-                image_url = 'http://placehold.it/%sx%s' % (height, width)
+                image_url = 'http://placehold.it/%sx%s' % (
+                        self.data.height, self.data.width)
             
             data.append({
                 'title': title,
