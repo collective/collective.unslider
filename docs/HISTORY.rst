@@ -4,7 +4,7 @@ Changelog
 1.2 (unreleased)
 ----------------
 
-- Nothing changed yet.
+- Missing definition of height/width variable when image is not set [izhar]
 
 
 1.1 (2013-07-03)
