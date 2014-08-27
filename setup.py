@@ -5,7 +5,7 @@ version = '1.5.dev0'
 
 setup(name='collective.unslider',
       version=version,
-      description="",
+      description="Addon to provide a simple user friendly slider portlet using unslider.js and collective.sliderfields.",
       long_description=open("README.rst").read() + "\n" +
                        open(os.path.join("docs", "HISTORY.rst")).read(),
       # Get more strings from
