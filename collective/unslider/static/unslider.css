@@ -8,7 +8,10 @@
 }
 
 .unslider-portlet .unslider-slide h1 {
-    margin-top:50px;
+}
+
+.unslider-slide-content {
+    padding-top:50px;
 }
 
 .portletUnsliderPortlet {

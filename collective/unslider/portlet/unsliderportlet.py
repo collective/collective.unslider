@@ -117,6 +117,7 @@ class Renderer(base.Renderer):
                         height: %spx;
                         width: %spx;
                         background-image:url('%s');
+                        display:block;
                     """ % (
                         self.data.height, self.data.width, image_url
                     )

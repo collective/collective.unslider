@@ -3,16 +3,17 @@
     i18n:domain="collective.unslider">
     <div class="unslider-portlet unslider">
         <ul>
-            <li class="unslider-slide"
-                tal:repeat="item view/contents"
-                tal:attributes="style item/slide_css">
-                <div class="unslider-slide-content">
-                    <h1><a tal:attributes="href item/url"
-                            tal:content="item/title"></a></h1>
-                    <p><a tal:attributes="href item/url"
-                            tal:content="item/description"></a></p>
-                </div>
-            </li>
+            <tal:r repeat="item view/contents">
+                <li class="unslider-slide">
+                    <a tal:attributes="style item/slide_css;
+                        href item/url;">
+                        <div class="unslider-slide-content">
+                            <h1 style="display:inline" tal:content="item/title"></h1>
+                            <p tal:content="item/description"></p>
+                        </div>
+                    </a>
+                </li>
+            </tal:r>
         </ul>
     </div>
 </div>
